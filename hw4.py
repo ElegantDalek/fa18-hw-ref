@@ -13,8 +13,13 @@ most_common_char
 Given an input string s, return the most common character in s.
 """
 def most_common_char(s):
-	pass
-
+    hist_chars = {}
+    for character in s:
+        if character in hist_chars:
+            hist_chars[character] += 1
+        else:
+            hist_chars[character] = 1
+    return sorted(hist_chars, key = hist_chars.get)[-1] 
 
 """
 alphabet_finder
