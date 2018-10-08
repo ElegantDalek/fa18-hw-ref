@@ -7,6 +7,9 @@ You might find certain default Python packages immensely helpful.
 
 # Good luck!
 
+import itertools
+from itertools import combinations
+
 """
 most_common_char
 
@@ -42,7 +45,18 @@ Example 2:
 		None
 """
 def alphabet_finder(s):
-	pass
+    import string
+    lowercase = s.lower()
+    abc_dict = {}
+    abc_dict = dict.fromkeys(string.ascii_lowercase, 1)
+    index = 0
+    while (len(abc_dict) > 0 and index < len(lowercase)):
+        try:
+            abc_dict.pop(lowercase[index])
+        except KeyError:
+            pass
+        index += 1
+    return s[:index]
 
 
 """
@@ -88,7 +102,7 @@ Example 1:
 		True
 
 Example 2:
-	Argument:
+Argument:
 		"aaabbbcccddde"
 		There are 3 a's, 3 b's, 3 c's, and 3 d's. We have 1 e, which we can remove.
 	Return:
@@ -104,8 +118,19 @@ Example 3:
 		False
 """
 def string_my_one_true_love(s):
-	pass
-
+    char_hist = {}
+    for c in s:
+        if c not in char_hist:
+            char_hist[c] = 1
+        else:
+            char_hist[c] += 1
+    letter_frequency = {}
+    for frequency in char_hist.values():
+        if frequency not in letter_frequency:
+            letter_frequency[frequency] = 1
+        else:
+            letter_frequency[frequency] += 1
+    print(letter_frequency)
 
 """
 alive_people
@@ -122,7 +147,22 @@ Example:
 		1961
 """
 def alive_people(data):
-	pass
+    # Convert the second number to a year
+    for date in data:
+        date[1] = (date[0] // 100) * 100 + date[1]
+        if date[1] > date[0]:
+            date[1] += 100
+
+    # Convert it to a histogram of the years people were alive
+    alive_people = {}
+    for date in data:
+        for year in range(date[0],date[1]+1):
+            if year not in alive_people:
+                alive_people[year] = 1
+            else:
+                alive_people[year] += 1
+    # Return max of the values
+    return max(alive_people.iteritems(), key=operator.itemgetter(1))
 
 
 """
@@ -145,7 +185,14 @@ Example:
 		]
 """
 def three_sum(arr, t):
-	pass
+    return list(set([tuple(sorted(triplet)) for triplet in combinations(arr, 3) if sum(triplet) == t and sorted(triplet)]))
+    '''
+    correct_triplets = [] 
+    for triplet in combinations(arr, 3):
+        if sum(triplet) == t and sorted(triplet) not in correct_triplets:
+            correct_triplets.append(sorted(triplet))
+    return correct_triplets
+    '''
 
 
 """
