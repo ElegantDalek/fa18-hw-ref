@@ -7,6 +7,7 @@ You might find certain default Python packages immensely helpful.
 
 # Good luck!
 
+import string
 import itertools
 from itertools import combinations
 
@@ -45,7 +46,6 @@ Example 2:
 		None
 """
 def alphabet_finder(s):
-    import string
     lowercase = s.lower()
     abc_dict = {}
     abc_dict = dict.fromkeys(string.ascii_lowercase, 1)
@@ -119,7 +119,7 @@ Example 3:
 """
 def string_my_one_true_love(s):
     char_hist = {}
-    for c in s:
+    for c in s: # Histogram of the letters
         if c not in char_hist:
             char_hist[c] = 1
         else:
@@ -130,7 +130,11 @@ def string_my_one_true_love(s):
             letter_frequency[frequency] = 1
         else:
             letter_frequency[frequency] += 1
-    print(letter_frequency)
+    if len(letter_frequency) <= 1 or (len(letter_frequency) == 2 and letter_frequency[1] == 1):
+        return True
+    return False
+
+    
 
 """
 alive_people
@@ -150,7 +154,7 @@ def alive_people(data):
     # Convert the second number to a year
     for date in data:
         date[1] = (date[0] // 100) * 100 + date[1]
-        if date[1] > date[0]:
+        if date[1] < date[0]:
             date[1] += 100
 
     # Convert it to a histogram of the years people were alive
@@ -161,9 +165,15 @@ def alive_people(data):
                 alive_people[year] = 1
             else:
                 alive_people[year] += 1
+    print(alive_people)
     # Return max of the values
-    return max(alive_people.iteritems(), key=operator.itemgetter(1))
-
+    year = 0
+    deaths = 0
+    for key, value in alive_people.items():
+        if value > deaths:
+            deaths = value
+            year = key
+    return year
 
 """
 three_sum
@@ -185,16 +195,7 @@ Example:
 		]
 """
 def three_sum(arr, t):
-    return list(set([tuple(sorted(triplet)) for triplet in combinations(arr, 3) if sum(triplet) == t and sorted(triplet)]))
-    '''
-    correct_triplets = [] 
-    for triplet in combinations(arr, 3):
-        if sum(triplet) == t and sorted(triplet) not in correct_triplets:
-            correct_triplets.append(sorted(triplet))
-    return correct_triplets
-    '''
-
-
+    return [list(correct_triplets) for correct_triplets in list(set([tuple(sorted(triplet)) for triplet in combinations(arr, 3) if sum(triplet) == t]))]
 """
 happy_numbers
 
@@ -214,7 +215,22 @@ Example 2:
 		4294967296 ** (1 / 16) (i.e., 4)
 """
 def happy_numbers(n):
-	pass
+    def test_happiness(num):
+        numbers_tried = []
+        testNum = num
+        while testNum != 1:
+            testNum = sum(map(lambda x: int(x)**2, list(str(testNum))))
+            if (testNum in numbers_tried):
+                return False
+            numbers_tried.append(testNum)
+            print(testNum)
+        return True
+
+    happy_numbers_count = 0
+    for i in range(1, n + 1):
+        if test_happiness(i):
+            happy_numbers_count += 1
+    return happy_numbers_count
 
 
 """

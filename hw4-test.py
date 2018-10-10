@@ -25,6 +25,11 @@ class tester_alive_people(unittest.TestCase):
 
 class tester_three_sum(unittest.TestCase):
     def test__given(self):
-        self.assertEqual(three_sum([-1,0,1,2,-1,4],0), [[-1,0,1],[-1,-1,2]])
+        self.assertEqual(three_sum([-1,0,1,2,-1,4],0), [[-1,-1,2],[-1,0,1]])
+
+class tester_happy_numbers(unittest.TestCase):
+    def test__given(self):
+        self.assertEqual(happy_numbers(8), 2)
+
 if __name__ == "__main__":
 	unittest.main(module=__name__, buffer=True, exit=False)
