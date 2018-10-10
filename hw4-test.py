@@ -31,5 +31,9 @@ class tester_happy_numbers(unittest.TestCase):
     def test__given(self):
         self.assertEqual(happy_numbers(8), 2)
 
+class tester_zero_sum_subarray(unittest.TestCase):
+    def test__given(self):
+        self.assertEqual(zero_sum_subarray([10,20,-20,3,21,2,-6]), [1,2])
+
 if __name__ == "__main__":
 	unittest.main(module=__name__, buffer=True, exit=False)

@@ -75,8 +75,7 @@ Example:
 		[1, 6]
 """
 def longest_unique_subarray(arr):
-	pass
-
+    pass
 
 """
 string_my_one_true_love
@@ -262,6 +261,11 @@ Example 2:
 		[1, 2]
 """
 def zero_sum_subarray(arr):
-    pass 
-
+    for i in range(len(arr)):
+        cut_arr = arr[i:]
+        for j in range(1, len(cut_arr)):
+            print(cut_arr[:j])
+            if sum(cut_arr[:j]) == 0:
+                return [i, j]
+    return None
 
